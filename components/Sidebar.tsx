@@ -16,7 +16,7 @@ export function Sidebar({ categories }: Props) {
 
       <div className="panel">
         <div className="panel-title">
-          NEW CATALOGS
+          NEW Arrivals
         </div>
 
         {categories.map((category) => (
