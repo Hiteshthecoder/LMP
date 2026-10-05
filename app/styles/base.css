@@ -28,15 +28,6 @@
   text-transform: uppercase;
 }
 
-.logo::after {
-  content: "";
-  position: absolute;
-  margin-top: 47px;
-  width: 3px;
-  height: 18px;
-  background: #b8c5ca;
-}
-
 .rate {
   margin-left: auto;
   width: 322px;
@@ -461,4 +452,3 @@
   text-align: center;
   padding: 30px;
 }
-
