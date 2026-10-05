@@ -74,7 +74,22 @@ function buildFilter(options: ProductFilters): Record<string, any> {
   const filter: Record<string, any> = { status: "active" };
 
   if (options.category) filter.categorySlug = options.category;
-  if (options.location) filter.location = options.location;
+
+  if (options.location?.trim()) {
+    // Product locations are stored as free-form text and may contain
+    // multiple regions (for example, "Ukraine, mexico" or
+    // "south america, europe, asia"). Match the selected location
+    // case-insensitively as a complete word instead of requiring an
+    // exact database-string match.
+    const escapedLocation = options.location
+      .trim()
+      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    filter.location = {
+      $regex: `\\b${escapedLocation}\\b`,
+      $options: "i",
+    };
+  }
 
   if (options.q?.trim()) {
     const escaped = options.q.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

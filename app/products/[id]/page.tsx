@@ -1,26 +1,70 @@
-import { notFound } from "next/navigation";
 import Image from "next/image";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BuyButton } from "@/components/BuyButton";
 import { ProductSidebar } from "@/components/ProductSidebar";
 import { ProductTabs } from "@/components/ProductTabs";
 import { RelatedProductCard } from "@/components/RelatedProductCard";
+
 import { formatUsd } from "@/lib/utils";
 import {
   formatBitcoin,
   getBitcoinUsdPrice,
   usdToBitcoin,
 } from "@/lib/bitcoin";
+
 import {
   getProductPageData,
   getRelatedProducts,
 } from "@/lib/product-page";
 
+type ProductPageProps = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+function formatCategory(category: string) {
+  return category
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
+  const { id } = await params;
+
+  const product = await getProductPageData(id);
+
+  if (!product) {
+    return {
+      title: "Product Not Found",
+      description: "The requested product could not be found.",
+    };
+  }
+
+  return {
+    title: `LMP : ${product.name}`,
+    description: `View details and pricing for ${product.name}.`,
+    openGraph: {
+      title: `LMP : ${product.name}`,
+      description: `View details and pricing for ${product.name}.`,
+      images: [
+        {
+          url: product.image,
+          alt: product.name,
+        },
+      ],
+    },
+  };
+}
+
 export default async function ProductDetailPage({
   params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+}: ProductPageProps) {
   const { id } = await params;
 
   const product = await getProductPageData(id);
@@ -39,12 +83,20 @@ export default async function ProductDetailPage({
     bitcoinUsdPrice
   );
 
+  const formattedCategory = formatCategory(product.category);
+
+  const formattedUsdPrice = product.price.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
   return (
     <main className="page-shell product-detail-shell">
       <Breadcrumb items={["Home", product.name]} />
 
       <div className="product-page-layout">
         <ProductSidebar />
+
         <section className="product-detail-content">
           <section className="product-hero panel">
             <div className="product-gallery">
@@ -76,13 +128,14 @@ export default async function ProductDetailPage({
                 <span>{formatUsd(product.price)}</span>
               </div>
 
-
               <div className="product-fact">
                 <strong>Category:</strong>{" "}
                 <a
-                  href={`/?category=${encodeURIComponent(product.category)}`}
+                  href={`/?category=${encodeURIComponent(
+                    product.category
+                  )}`}
                 >
-                  {product.category.replace(/[-_]/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase())}
+                  {formattedCategory}
                 </a>
               </div>
 
@@ -91,20 +144,16 @@ export default async function ProductDetailPage({
                 <span>{product.deals} pcs</span>
               </div>
 
-              {product.details[0] ? (
+              {product.details[0] && (
                 <div className="product-fact">
                   <strong>Delivery service:</strong>{" "}
                   <span>{product.details[0]}</span>
                 </div>
-              ) : null}
+              )}
 
               <div className="purchase-row">
                 <div className="currency-price">
-                  🇺🇸 USD{" "}
-                  {product.price.toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  🇺🇸 USD {formattedUsdPrice}
                 </div>
 
                 <div
@@ -115,8 +164,7 @@ export default async function ProductDetailPage({
                       : "Live Bitcoin price unavailable"
                   }
                 >
-                  ₿ BTC{" "}
-                  {formatBitcoin(bitcoinAmount)}
+                  ₿ BTC {formatBitcoin(bitcoinAmount)}
                 </div>
 
                 <BuyButton productId={product.id} />
@@ -124,9 +172,7 @@ export default async function ProductDetailPage({
             </div>
           </section>
 
-          <ProductTabs
-            product={product}
-          />
+          <ProductTabs product={product} />
 
           <section className="related-section">
             <div className="related-heading">
