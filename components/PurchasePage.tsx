@@ -131,6 +131,7 @@ export function PurchasePage({
             <Image
               className="btc-qr-img"
               src="/btc-qr.png"
+              priority
               quality={100}
               alt={product.name}
               width={250}
