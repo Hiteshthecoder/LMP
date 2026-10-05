@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { CategoryOption } from "@/data/products";
 import { t } from "@/lib/text";
 
-const locations = ["Europe", "North America", "South America", "Ukraine", "Mexico", "Asia", "France"];
+const locations = ["Europe", "North And South America ", "North America", "South America", "Ukraine", "Mexico", "Asia", "France"];
 
 export function SidebarSearch({
   categories,
