@@ -3,7 +3,6 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { Sidebar } from "@/components/Sidebar";
 import { CatalogResults } from "@/components/CatalogResults";
 import { CatalogResultsSkeleton } from "@/components/CatalogResultsSkeleton";
-import { T } from "@/components/Translated";
 import { getCategories } from "@/lib/catalog";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -19,7 +18,7 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
           <Sidebar categories={categories} />
         </Suspense>
         <section className="main-content">
-          <div className="shops-title"><T k="★ SHOPS" /></div>
+          <div className="shops-title">★ SHOPS</div>
           <Suspense fallback={<CatalogResultsSkeleton />}>
             <CatalogResults searchParams={searchParams} />
           </Suspense>

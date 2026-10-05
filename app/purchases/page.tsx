@@ -1,21 +1,20 @@
 "use client";
 import { ProtectedPage } from "@/components/ProtectedPage";
-import { useLanguage } from "@/components/LanguageProvider";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { t } from "@/lib/text";
 
-function ProfileActions({ t }: { t: (key: string) => string }) {
+function ProfileActions() {
   const links = [
     ["Home", "/"],
-    ["Balance", "/balance"],
     ["My Purchases", "/purchases"],
   ];
 
   return (
     <aside className="profile-actions panel">
-      <div className="profile-actions-title">♙ {t("PROFILE ACTIONS")}</div>
-      <nav aria-label={t("PROFILE ACTIONS")}>
+      <div className="profile-actions-title">♙ PROFILE ACTIONS</div>
+      <nav aria-label="Profile actions">
         {links.map(([label, href]) => (
-          <a href={href} key={label}>{t(label)}</a>
+          <a href={href} key={label}>{label}</a>
         ))}
       </nav>
     </aside>
@@ -23,12 +22,11 @@ function ProfileActions({ t }: { t: (key: string) => string }) {
 }
 
 export default function PurchasesPage() {
-  const { t } = useLanguage();
   return (
     <ProtectedPage titleKey="MY PURCHASES">
       <Breadcrumb items={["My Profile", "My Purchases"]} />
       <div className="purchases-layout">
-        <ProfileActions t={t} />
+        <ProfileActions />
         <section className="purchases-main">
           <div className="purchases-title">▣ {t("MY PURCHASES")}</div>
           <div className="purchases-empty panel">

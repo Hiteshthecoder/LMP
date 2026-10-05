@@ -27,7 +27,6 @@ type UserRecord = {
   email: string;
   role: "user" | "admin";
   trustLevel: number;
-  balance?: number;
 };
 
 export async function POST(request: Request) {
@@ -102,7 +101,7 @@ export async function POST(request: Request) {
     );
 
     const user = (await User.findById(device.userId)
-      .select("username displayName email role trustLevel balance")
+      .select("username displayName email role trustLevel")
       .lean()) as UserRecord | null;
 
     if (!user) {
@@ -124,7 +123,6 @@ export async function POST(request: Request) {
         email: user.email,
         role: user.role,
         trustLevel: user.trustLevel,
-        balance: user.balance ?? 0,
       },
     });
   } catch (error) {

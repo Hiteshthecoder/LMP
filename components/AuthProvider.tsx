@@ -10,7 +10,6 @@ type User = {
   email: string;
   role: string;
   trustLevel: number;
-  balance: number;
 };
 
 type AuthContextValue = {

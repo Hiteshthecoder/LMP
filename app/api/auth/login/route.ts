@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     await connectDB();
     const user = await User.findOne({
       $or: [{ username: usernameOrEmail }, { email: usernameOrEmail.toLowerCase() }],
-    }).select("+passwordHash username displayName email role trustLevel balance");
+    }).select("+passwordHash username displayName email role trustLevel");
 
     if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
       return NextResponse.json({ error: "Invalid username/email or password." }, { status: 401 });
@@ -51,7 +51,6 @@ export async function POST(request: Request) {
         email: user.email,
         role: user.role,
         trustLevel: user.trustLevel,
-        balance: user.balance ?? 0,
       },
     });
   } catch (error) {

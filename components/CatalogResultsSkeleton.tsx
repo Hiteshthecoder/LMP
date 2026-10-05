@@ -1,9 +1,8 @@
 "use client";
 
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export function CatalogResultsSkeleton() {
-  const { t } = useLanguage();
   return (
     <div className="shops-grid catalog-skeleton" aria-label={t("Loading catalogue…")} aria-busy="true">
       {Array.from({ length: 12 }, (_, index) => (

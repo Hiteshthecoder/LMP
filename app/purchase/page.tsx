@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { PurchasePage } from "@/components/PurchasePage";
 import { getProductPageData } from "@/lib/product-page";
-import { getBitcoinUsdPrice } from "@/lib/bitcoin";
 
 export default async function PurchaseRoute({
   searchParams,
@@ -20,7 +19,5 @@ export default async function PurchaseRoute({
     notFound();
   }
 
-  const bitcoinUsdPrice = await getBitcoinUsdPrice();
-
-  return <PurchasePage product={product} bitcoinUsdPrice={bitcoinUsdPrice} />;
+  return <PurchasePage product={product} />;
 }

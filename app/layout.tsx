@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { AuthProvider } from "@/components/AuthProvider";
-import { LanguageProvider } from "@/components/LanguageProvider";
 import { getCategories } from "@/lib/catalog";
 
 export const metadata = {
@@ -9,6 +8,8 @@ export const metadata = {
   description:
     "Global Marketplace for Genuine Guns",
 };
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export default async function RootLayout({
   children,
@@ -16,18 +17,16 @@ export default async function RootLayout({
   const categories = await getCategories();
 
   return (
-    <html lang="fr">
+    <html lang="en">
       <body>
-        <LanguageProvider>
-          <AuthProvider>
-            <div className="site">
-              <div className="top-space" />
-              <Header categories={categories} />
+        <AuthProvider>
+          <div className="site">
+            <div className="top-space" />
+            <Header categories={categories} />
 
-              {children}
-            </div>
-          </AuthProvider>
-        </LanguageProvider>
+            {children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

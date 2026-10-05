@@ -3,7 +3,7 @@
 import { FormEvent, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { CategoryOption } from "@/data/products";
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 const locations = ["Europe", "Asia", "Spain", "Germany"];
 
@@ -12,7 +12,6 @@ export function SidebarSearch({
 }: {
   categories: CategoryOption[];
 }) {
-  const { t } = useLanguage();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

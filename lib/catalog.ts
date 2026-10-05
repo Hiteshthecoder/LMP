@@ -36,8 +36,6 @@ function fromMongo(doc: any): ProductView & { _id?: string } {
     deals: doc.deals ?? 0,
     vendorName: doc.vendorName || "LMP",
     vendorLevel: doc.vendorLevel ?? 1,
-    rating: doc.rating ?? 0,
-    reviews: doc.reviews ?? 0,
     verified: Boolean(doc.verified),
     location: doc.location ?? "",
     details: Array.isArray(doc.details) ? doc.details : [],

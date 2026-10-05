@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/data/products";
 import { formatUsd, humanizeSlug } from "@/lib/utils";
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export function ShopCard({
   product,
@@ -13,8 +13,6 @@ export function ShopCard({
   product: Product;
   priority?: boolean;
 }) {
-  const { t } = useLanguage();
-  const feedback = Math.round(product.deals);
   const category = humanizeSlug(product.category);
 
   return (
@@ -41,26 +39,7 @@ export function ShopCard({
           </div>
 
           <div className="shop-detail-line">
-            <strong>{t("Sold by")}</strong> {t(product.vendorName || "LMP")}
-          </div>
-
-          <div className="shop-divider" />
-
-          <div className="shop-stat-grid">
-            <div className="shop-stat">
-              <span>{t("Feedback")}</span>
-              <strong
-                className={`feedback-badge ${
-                  feedback >= 80
-                    ? "feedback-positive"
-                    : feedback > 0
-                      ? "feedback-neutral"
-                      : "feedback-zero"
-                }`}
-              >
-                {feedback}%
-              </strong>
-            </div>
+            <strong>{t("Sold by")}{" : "}</strong> {t(product.vendorName || "LMP")}
           </div>
 
           <div className="shop-divider" />

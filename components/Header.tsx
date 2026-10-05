@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
-import { useLanguage } from "@/components/LanguageProvider";
 import type { CategoryOption } from "@/data/products";
-import { languages } from "@/lib/i18n";
 
 type Props = {
   categories: CategoryOption[];
@@ -12,7 +10,6 @@ type Props = {
 
 export function Header({ categories }: Props) {
   const { user, loading, logout } = useAuth();
-  const { language, setLanguage, t } = useLanguage();
 
   return (
     <header className="header">
@@ -26,7 +23,7 @@ export function Header({ categories }: Props) {
 
       <nav className="nav">
         <div className="menu-wrap">
-          <span className="nav-item">{t("CATEGORIES")} 📁</span>
+          <span className="nav-item">CATEGORIES 📁</span>
 
           <div className="dropdown">
             {categories.map((category) => (
@@ -34,26 +31,8 @@ export function Header({ categories }: Props) {
                 key={category.slug}
                 href={`/?category=${encodeURIComponent(category.slug)}`}
               >
-                {t(category.title)} ({category.productCount})
+                {category.title} ({category.productCount})
               </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="menu-wrap">
-          <span className="nav-item">{t("LANGUAGE")} 🌐</span>
-
-          <div className="dropdown language-dropdown">
-            {languages.map(({ code, flag, label }) => (
-              <button
-                className={`language-option ${language === code ? "active" : ""
-                  }`}
-                key={code}
-                onClick={() => setLanguage(code)}
-                type="button"
-              >
-                {flag}&nbsp; {label}
-              </button>
             ))}
           </div>
         </div>
@@ -61,29 +40,25 @@ export function Header({ categories }: Props) {
         {!loading && !user ? (
           <>
             <Link className="nav-item" href="/login">
-              ↪ {t("LOG IN")}
+              ↪ LOG IN
             </Link>
 
             <Link className="nav-item" href="/register">
-              ♙ {t("REGISTER")}
+              ♙ REGISTER
             </Link>
           </>
         ) : !loading && user ? (
           <>
             <Link className="nav-item" href="/purchases">
-              {t("MY PURCHASES")} 🛒
+              MY PURCHASES 🛒
             </Link>
 
             <Link className="nav-item" href="/messages">
-              {t("MESSAGES")} 💬
+              MESSAGES 💬
             </Link>
 
             <Link className="nav-item" href="/help">
-              {t("HELP")} ❓
-            </Link>
-
-            <Link className="nav-item" href="/balance">
-              {t("BALANCE")} 👛
+              HELP ❓
             </Link>
 
             <button
@@ -91,7 +66,7 @@ export function Header({ categories }: Props) {
               onClick={logout}
               type="button"
             >
-              {t("LOG OUT")} ↪
+              LOG OUT ↪
             </button>
           </>
         ) : null}

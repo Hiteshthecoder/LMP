@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Product } from "@/data/products";
 import { ShopCard } from "@/components/ShopCard";
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 type CatalogFilters = {
   q?: string;
@@ -59,7 +59,6 @@ export function CatalogInfiniteList({
   initialHasMore,
   filters,
 }: Props) {
-  const { t } = useLanguage();
   const [products, setProducts] = useState(initialProducts);
   const [nextCursor, setNextCursor] = useState(initialCursor);
   const [hasMore, setHasMore] = useState(initialHasMore);

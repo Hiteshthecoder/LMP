@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export type ProductFeedbackItem = {
   id: string;
@@ -21,7 +21,6 @@ export function ProductFeedback({
 }: {
   feedback: ProductFeedbackItem[];
 }) {
-  const { t } = useLanguage();
 
   return (
     <section id="product-feedback" className="product-tab-panel feedback-panel">

@@ -28,8 +28,8 @@ export async function connectDB() {
       maxPoolSize: 10,
       minPoolSize: 0,
       maxIdleTimeMS: 30_000,
-      serverSelectionTimeoutMS: 2_000,
-      connectTimeoutMS: 2_000,
+      serverSelectionTimeoutMS: 10_000,
+      connectTimeoutMS: 10_000,
     });
 
     cached.promise.catch(() => {

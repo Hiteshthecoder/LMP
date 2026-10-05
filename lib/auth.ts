@@ -45,7 +45,7 @@ export async function getSessionUser(request: Request) {
 
   if (!session) return null;
 
-  const user = await User.findById(session.userId).select("username displayName email role trustLevel balance").lean();
+  const user = await User.findById(session.userId).select("username displayName email role trustLevel").lean();
   if (!user) return null;
 
   return { user, session };

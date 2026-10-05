@@ -1,5 +1,4 @@
 import { CatalogInfiniteList } from "@/components/CatalogInfiniteList";
-import { T } from "@/components/Translated";
 import { getProductsPage } from "@/lib/catalog";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -46,7 +45,7 @@ export async function CatalogResults({ searchParams }: { searchParams: Promise<S
     });
 
     if (!page.products.length) {
-      return <div className="content-card search-empty"><T k="No catalogue items match your search." /></div>;
+      return <div className="content-card search-empty">No catalogue items match your search.</div>;
     }
 
     return (
@@ -62,9 +61,9 @@ export async function CatalogResults({ searchParams }: { searchParams: Promise<S
 
     return (
       <div className="catalog-load-more-error catalog-initial-error" role="alert">
-        <span><T k="Could not load products." /></span>
+        <span>Could not load products.</span>
         <a className="btn" href={buildCurrentQuery(params)}>
-          <T k="Try again" />
+          Try again
         </a>
       </div>
     );

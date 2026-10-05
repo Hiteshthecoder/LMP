@@ -1,13 +1,10 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import type { ProductPageData } from "@/lib/product-page";
 import { formatUsd } from "@/lib/utils";
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export function RelatedProductCard({ product }: { product: ProductPageData }) {
-  const { t } = useLanguage();
 
   return (
     <article className="related-product-card">
@@ -28,12 +25,6 @@ export function RelatedProductCard({ product }: { product: ProductPageData }) {
             {t(product.vendorName || "LMP")}
           </div>
 
-          <div>
-            <strong>{t("Feedback")}:</strong>{" "}
-            <span className="feedback-badge feedback-neutral">
-              {Math.round(product.deals)}%
-            </span>
-          </div>
 
           <div className="related-price">{formatUsd(product.price)}</div>
         </div>

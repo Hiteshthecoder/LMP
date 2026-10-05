@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     const token = await createSession(user._id.toString(), deviceId);
     return NextResponse.json({
       token,
-      user: { _id: user._id.toString(), username, displayName, email, role: user.role, trustLevel: user.trustLevel, balance: user.balance ?? 0 },
+      user: { _id: user._id.toString(), username, displayName, email, role: user.role, trustLevel: user.trustLevel },
     }, { status: 201 });
   } catch (error) {
     console.error(error);

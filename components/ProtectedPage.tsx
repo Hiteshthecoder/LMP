@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export function ProtectedPage({ titleKey, children }: { titleKey: string; children: React.ReactNode }) {
   const { user, loading } = useAuth();
-  const { t } = useLanguage();
   const title = t(titleKey);
 
   if (loading) {

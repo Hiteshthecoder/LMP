@@ -7,7 +7,6 @@ const UserSchema = new Schema({
   passwordHash: { type: String, required: true, select: false },
   role: { type: String, enum: ["user", "admin"], default: "user" },
   trustLevel: { type: Number, default: 1, min: 1, max: 5 },
-  balance: { type: Number, default: 0, min: 0 },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

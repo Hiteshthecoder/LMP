@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export function Breadcrumb({ items = [] }: { items?: string[] }) {
-  const { t } = useLanguage();
 
   return (
     <div className="breadcrumb">

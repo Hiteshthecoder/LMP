@@ -1,9 +1,8 @@
 "use client";
 
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export default function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
-  const { t } = useLanguage();
   return (
     <main className="page-shell">
       <div className="catalog-load-more-error catalog-initial-error" role="alert">

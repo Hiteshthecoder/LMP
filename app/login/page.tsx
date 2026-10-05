@@ -5,11 +5,10 @@ import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export default function LoginPage() {
   const { login, user, loading } = useAuth();
-  const { t } = useLanguage();
   const router = useRouter();
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");

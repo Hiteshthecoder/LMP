@@ -1,0 +1,285 @@
+.purchase-delivery-form {
+  margin-top: 3px;
+}
+
+.purchase-subheading {
+  margin: 4px 0 12px;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.purchase-form-field {
+  margin: 0 0 12px;
+}
+
+.purchase-form-field label {
+  display: block;
+  margin: 0 0 5px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.required-marker {
+  color: #fff;
+}
+
+.purchase-form-field input,
+.purchase-form-field select {
+  display: block;
+  width: 100%;
+  height: 29px;
+  box-sizing: border-box;
+  border: 1px solid #24576a;
+  border-radius: 5px;
+  background: #102d37;
+  color: #fff;
+  padding: 5px 9px;
+  outline: none;
+  font: inherit;
+  font-size: 13px;
+}
+
+.purchase-form-field input::placeholder {
+  color: #78919a;
+}
+
+.purchase-form-field input:focus,
+.purchase-form-field select:focus {
+  border-color: #3b8ca8;
+}
+
+.purchase-form-field select:disabled {
+  opacity: .72;
+  cursor: not-allowed;
+}
+
+.purchase-save-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 3px 0 11px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.purchase-save-option input {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: #fff;
+}
+
+.purchase-locker-note {
+  margin: 2px 0 8px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Shared account panels used by the product and purchases pages. */
+.user-sidebar-card {
+  padding: 11px;
+}
+
+.user-sidebar-identity {
+  display: grid;
+  grid-template-columns: 98px minmax(0, 1fr);
+  align-items: center;
+  gap: 11px;
+  min-height: 101px;
+}
+
+.user-sidebar-avatar {
+  width: 98px;
+  height: 101px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #103544;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.user-sidebar-info {
+  min-width: 0;
+  align-self: center;
+}
+
+.user-sidebar-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.user-sidebar-trust {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 5px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.user-sidebar-trust strong {
+  min-width: 28px;
+  border-radius: 4px;
+  background: #55bc5f;
+  padding: 1px 7px;
+  text-align: center;
+}
+
+.user-sidebar-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.user-sidebar-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 7px 5px;
+  border: 1px solid #087aa8;
+  border-radius: 5px;
+  background: #092a36;
+  color: #fff;
+  font-weight: 900;
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.user-sidebar-action span {
+  font-size: 21px;
+  line-height: 1;
+}
+
+.user-sidebar-action:hover {
+  background: #0b6287;
+}
+
+.user-sidebar-logout {
+  font: inherit;
+}
+
+/* My purchases matches the reference's compact account navigation and empty state. */
+.purchases-layout {
+  display: grid;
+  grid-template-columns: 338px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  margin-top: 36px;
+}
+
+.profile-actions {
+  padding: 10px;
+}
+
+.profile-actions-title,
+.purchases-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 43px;
+  border-radius: 6px;
+  background: #0b6287;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.profile-actions nav {
+  padding: 8px 3px 5px;
+}
+
+.profile-actions a {
+  display: block;
+  padding: 5px 10px;
+  border-bottom: 1px solid #a8b9be;
+  color: #fff;
+  font-size: 14px;
+}
+
+.profile-actions a:hover {
+  background: rgba(11, 98, 135, .42);
+}
+
+.purchases-main {
+  min-width: 0;
+}
+
+.purchases-title {
+  min-height: 45px;
+  margin-bottom: 29px;
+  font-size: 20px;
+}
+
+.purchases-empty {
+  min-height: 135px;
+  padding: 29px 22px;
+}
+
+.purchases-empty::before,
+.purchases-empty::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: var(--line);
+}
+
+.purchases-empty div {
+  display: grid;
+  place-items: center;
+  min-height: 50px;
+  margin: 10px 0;
+  border-radius: 6px;
+  background: #102f3a;
+  color: #fff;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .purchases-layout {
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 720px) {
+  .purchases-layout {
+    grid-template-columns: 1fr;
+    margin-top: 16px;
+  }
+
+  .purchases-title {
+    margin-bottom: 14px;
+  }
+}
+
+.purchase-delivery-card .purchase-saved-addresses {
+  margin: 8px 0 25px;
+}
+
+.purchase-comment-label {
+  margin-top: 0;
+}
+
+@media (max-width: 560px) {
+  .purchase-delivery-card {
+    padding: 13px;
+  }
+
+  .purchase-form-field input,
+  .purchase-form-field select {
+    height: 34px;
+  }
+}

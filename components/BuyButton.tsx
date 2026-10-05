@@ -2,12 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export function BuyButton({ productId }: { productId: string }) {
   const router = useRouter();
   const { user, loading } = useAuth();
-  const { t } = useLanguage();
 
   const handleBuy = () => {
     if (!user) {

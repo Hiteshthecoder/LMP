@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 type Review = {
   id: string;
@@ -33,7 +33,6 @@ function relativeTime(
 }
 
 export function LatestReviewsList({ reviews }: { reviews: Review[] }) {
-  const { t } = useLanguage();
 
   return (
     <div className="scroll-list">

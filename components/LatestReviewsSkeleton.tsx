@@ -1,9 +1,8 @@
 "use client";
 
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export function LatestReviewsSkeleton() {
-  const { t } = useLanguage();
   return (
     <div className="scroll-list reviews-skeleton" aria-label={t("Loading reviews…")} aria-busy="true">
       {Array.from({ length: 8 }, (_, index) => (

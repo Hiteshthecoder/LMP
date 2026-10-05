@@ -4,10 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/data/products";
 import { formatUsd } from "@/lib/utils";
-import { useLanguage } from "@/components/LanguageProvider";
+import { t } from "@/lib/text";
 
 export function ProductCard({ product }: { product: Product }) {
-  const { t } = useLanguage();
 
   return (
     <article className="product-card">
@@ -24,7 +23,6 @@ export function ProductCard({ product }: { product: Product }) {
       <p>{t(product.description)}</p>
       <div className="product-meta">
         <span className="price">{formatUsd(product.price)}</span>
-        <span>{product.rating.toFixed(1)} ★</span>
       </div>
     </article>
   );

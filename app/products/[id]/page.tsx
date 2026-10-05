@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { T } from "@/components/Translated";
 import { BuyButton } from "@/components/BuyButton";
 import { ProductSidebar } from "@/components/ProductSidebar";
 import { ProductTabs } from "@/components/ProductTabs";
@@ -13,8 +12,6 @@ import {
   usdToBitcoin,
 } from "@/lib/bitcoin";
 import {
-  getCategoryProductCount,
-  getProductFeedback,
   getProductPageData,
   getRelatedProducts,
 } from "@/lib/product-page";
@@ -32,15 +29,8 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const [
-    feedback,
-    relatedProducts,
-    categoryProductCount,
-    bitcoinUsdPrice,
-  ] = await Promise.all([
-    getProductFeedback(product._id),
+  const [relatedProducts, bitcoinUsdPrice] = await Promise.all([
     getRelatedProducts(product.category, product._id, 4),
-    getCategoryProductCount(product.category),
     getBitcoinUsdPrice(),
   ]);
 
@@ -54,11 +44,7 @@ export default async function ProductDetailPage({
       <Breadcrumb items={["Home", product.name]} />
 
       <div className="product-page-layout">
-        <ProductSidebar
-          product={product}
-          categoryProductCount={categoryProductCount}
-        />
-
+        <ProductSidebar />
         <section className="product-detail-content">
           <section className="product-hero panel">
             <div className="product-gallery">
@@ -83,50 +69,32 @@ export default async function ProductDetailPage({
             </div>
 
             <div className="product-summary">
-              <h1><T k="Product Name:" /> {product.name}</h1>
+              <h1>Product Name: {product.name}</h1>
 
               <div className="product-fact">
-                <strong><T k="Item Price:" /></strong>{" "}
+                <strong>Item Price:</strong>{" "}
                 <span>{formatUsd(product.price)}</span>
               </div>
 
+
               <div className="product-fact">
-                <strong><T k="Item Rating:" /></strong>{" "}
-                <span className="stars">
-                  {"★".repeat(Math.round(product.rating))}
-                  {"☆".repeat(
-                    Math.max(0, 5 - Math.round(product.rating))
-                  )}
-                </span>{" "}
-                |{" "}
+                <strong>Category:</strong>{" "}
                 <a
-                  className="inline-feedback-link"
-                  href="#product-feedback"
+                  href={`/?category=${encodeURIComponent(product.category)}`}
                 >
-                  Reviews
+                  {product.category.replace(/[-_]/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase())}
                 </a>
               </div>
 
               <div className="product-fact">
-                <strong><T k="Category:" /></strong>{" "}
-                <a
-                  href={`/?category=${encodeURIComponent(
-                    product.category
-                  )}`}
-                >
-                  <T k={product.category.replace(/[-_]/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase())} />
-                </a>
-              </div>
-
-              <div className="product-fact">
-                <strong><T k="Sold:" /></strong>{" "}
-                <span><T k={`${product.deals} pcs`} /></span>
+                <strong>Sold:</strong>{" "}
+                <span>{product.deals} pcs</span>
               </div>
 
               {product.details[0] ? (
                 <div className="product-fact">
-                  <strong><T k="Delivery service:" /></strong>{" "}
-                  <span><T k={product.details[0]} /></span>
+                  <strong>Delivery service:</strong>{" "}
+                  <span>{product.details[0]}</span>
                 </div>
               ) : null}
 
@@ -158,12 +126,11 @@ export default async function ProductDetailPage({
 
           <ProductTabs
             product={product}
-            feedback={feedback}
           />
 
           <section className="related-section">
             <div className="related-heading">
-              <T k="Even more from this store" />
+              Even more from this store
             </div>
 
             {relatedProducts.length > 0 ? (
@@ -177,7 +144,7 @@ export default async function ProductDetailPage({
               </div>
             ) : (
               <div className="related-empty">
-                <T k="No other active products are available in this category." />
+                No other active products are available in this category.
               </div>
             )}
           </section>

@@ -9,8 +9,6 @@ export type Product = {
   deals: number;
   vendorName: string;
   vendorLevel: number;
-  rating: number;
-  reviews: number;
   verified: boolean;
   location: string;
   details: string[];

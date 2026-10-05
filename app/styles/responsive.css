@@ -1,0 +1,227 @@
+/* Responsive rules are isolated here so breakpoint behaviour stays easy to audit. */
+@media (max-width: 1100px) {
+  .brand-row {
+    padding-left: 28px;
+  }
+
+  .rate {
+    width: 260px;
+  }
+
+  .home-grid {
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+
+  .shops-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+  }
+
+  .brand-row {
+    min-height: 76px;
+    height: auto;
+    padding: 12px 0;
+    gap: 12px;
+  }
+
+  .logo {
+    width: auto;
+    min-width: 0;
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .rate {
+    width: auto;
+    min-width: 210px;
+    border-radius: 7px;
+    padding: 0 12px;
+  }
+
+  .nav {
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: thin;
+  }
+
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    order: 2;
+  }
+
+  .main-content {
+    order: 1;
+  }
+
+  .page-shell {
+    margin: 12px 10px 28px;
+    padding: 12px;
+  }
+
+  .shops-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .brand-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .logo {
+    min-height: 52px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rate {
+    width: 100%;
+    min-width: 0;
+    min-height: 34px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    padding: 6px;
+    overflow-x: visible;
+  }
+
+  .nav-item,
+  .menu-wrap {
+    min-height: 48px;
+    height: 48px;
+  }
+
+  .nav-item {
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .nav-spacer {
+    display: none;
+  }
+
+  .dropdown {
+    top: 48px;
+    max-width: calc(100vw - 40px);
+  }
+
+  .breadcrumb {
+    min-height: 38px;
+    height: auto;
+    padding: 8px 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .panel {
+    padding: 9px;
+  }
+
+  .shops-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .shop-body {
+    grid-template-columns: minmax(100px, 34%) minmax(0, 1fr);
+  }
+
+  .shop-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .range {
+    flex-wrap: wrap;
+  }
+
+  .range .input {
+    width: calc(50% - 3px);
+  }
+}
+
+@media (max-width: 560px) {
+  .page-shell {
+    margin: 8px 6px 20px;
+    padding: 8px;
+    border-radius: 5px;
+  }
+
+  .header {
+    width: calc(100% - 12px);
+    margin: 0 6px;
+  }
+
+  .nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .menu-wrap {
+    width: 100%;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .dropdown {
+    left: 0;
+    right: 0;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .shop-body {
+    grid-template-columns: 1fr;
+  }
+
+  .shop-image {
+    max-height: 280px;
+    object-fit: cover;
+  }
+
+  .shop-detail-line {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .shop-price-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  .shop-price-row>strong {
+    border-right: 0;
+  }
+
+  .search-actions {
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    min-height: 38px;
+  }
+}
+
+@media (min-width: 901px) {
+  .sidebar {
+    position: sticky;
+    top: 12px;
+    align-self: start;
+  }
+}

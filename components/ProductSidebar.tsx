@@ -2,19 +2,9 @@
 
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
-import { useLanguage } from "@/components/LanguageProvider";
-import { formatUsd } from "@/lib/utils";
-import type { ProductPageData } from "@/lib/product-page";
 
-export function ProductSidebar({
-  product: _product,
-  categoryProductCount: _categoryProductCount,
-}: {
-  product: ProductPageData;
-  categoryProductCount: number;
-}) {
+export function ProductSidebar() {
   const { user, loading, logout } = useAuth();
-  const { t } = useLanguage();
 
   return (
     <aside className="product-sidebar">
@@ -30,20 +20,16 @@ export function ProductSidebar({
                 <div className="user-sidebar-name">{user.username || user.displayName}</div>
 
                 <div className="user-sidebar-trust">
-                  <span>{t("Trust level")}</span>
+                  <span>Trust Level:</span>
                   <strong>{user.trustLevel}</strong>
                 </div>
 
-                <div className="user-sidebar-balance">
-                  <span>👛 {t("BALANCE")}:</span>
-                  <strong>{formatUsd(user.balance ?? 0)}</strong>
-                </div>
               </div>
             </div>
 
             <div className="user-sidebar-actions">
               <Link className="user-sidebar-action" href="/purchases">
-                <span aria-hidden="true">◉</span> {t("MY PURCHASES")}
+                <span aria-hidden="true">◉</span> MY PURCHASES
               </Link>
 
               <button
@@ -53,17 +39,9 @@ export function ProductSidebar({
                   void logout();
                 }}
               >
-                <span aria-hidden="true">↪</span> {t("LOG OUT")}
+                <span aria-hidden="true">↪</span> LOG OUT
               </button>
             </div>
-          </section>
-
-          <section className="panel balance-sidebar-card">
-            <div className="balance-sidebar-label">👛 {t("BALANCE")}</div>
-            <div className="balance-sidebar-value">{formatUsd(user.balance ?? 0)}</div>
-            <a className="balance-sidebar-button" href="/balance">
-              ₿ &nbsp; {t("Top up deposit")}
-            </a>
           </section>
         </>
       ) : null}
