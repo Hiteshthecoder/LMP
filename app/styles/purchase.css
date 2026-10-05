@@ -305,6 +305,20 @@ button.purchase-payment-option {
   font-weight: 900;
 }
 
+.purchase-btc-amount-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btc-qr-img {
+  margin: 50px auto;
+}
+
+.btc-add {
+  text-align: center;
+}
+
 @media (max-width: 1050px) {
   .purchase-summary-grid {
     grid-template-columns: 1fr;

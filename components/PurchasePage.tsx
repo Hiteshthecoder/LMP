@@ -127,7 +127,16 @@ export function PurchasePage({
           </section>
 
           {btcPriceSection && <section className="purchase-btc-amount-summary">
-            <p>pls send {formatBitcoin(btcPrice)} BTC to the BitCoin QR above and mail us the payment proof at lemondeparallel@proton.me</p>
+            <h2>pls send {formatBitcoin(btcPrice)} BTC to the BitCoin QR and mail us the payment proof at lemondeparallel@proton.me</h2>
+            <Image
+              className="btc-qr-img"
+              src="/btc-qr.png"
+              quality={100}
+              alt={product.name}
+              width={250}
+              height={250}
+            />
+            <h3 className="btc-add"> Address :  bc1qr2uthxuv73hyzcudqa2m2h3qrsv8nn5r2nj4f4</h3>
           </section>}
 
           <section className="purchase-final-card">

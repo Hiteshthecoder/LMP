@@ -57,10 +57,6 @@ export function Header({ categories }: Props) {
               MESSAGES 💬
             </Link>
 
-            <Link className="nav-item" href="/help">
-              HELP ❓
-            </Link>
-
             <button
               className="nav-item nav-button"
               onClick={logout}
@@ -70,6 +66,13 @@ export function Header({ categories }: Props) {
             </button>
           </>
         ) : null}
+        <Link className="nav-item" href="/help">
+          HELP ❓
+        </Link>
+
+        <Link className="nav-item" href="/about">
+          ABOUT US ℹ️
+        </Link>
 
         <div className="nav-spacer" />
       </nav>
