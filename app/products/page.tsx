@@ -8,7 +8,7 @@ export default async function ProductsPage() {
     <main className="page-shell">
       <Breadcrumb items={["Products"]} />
       <section className="panel">
-        <div className="section-title">All Catalogue Items</div>
+        <div className="section-title">All Items</div>
         <div className="product-grid">
           {products.map((p) => <ProductCard key={p.id} product={p} />)}
         </div>

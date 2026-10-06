@@ -212,7 +212,7 @@ export function CatalogInfiniteList({
 
       {!loading && !error && !hasMore && products.length > 0 && (
         <div className="catalog-end-message" role="status" aria-live="polite">
-          <span>{t("You have reached the end of the catalogue.")}</span>
+          <span>{t("You have reached the end of the Items.")}</span>
         </div>
       )}
     </>

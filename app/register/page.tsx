@@ -60,7 +60,6 @@ export default function RegisterPage() {
       <div className="auth-wrap">
         <form className="auth-card" onSubmit={submit}>
           <h1>{t("Register")}</h1>
-          <p>{t("Create an account for the catalogue demo.")}</p>
           {error && <div className="form-error">{error}</div>}
 
           <label>{t("DISPLAY NAME")}</label>

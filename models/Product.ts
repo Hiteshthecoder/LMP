@@ -7,7 +7,7 @@ const ProductSchema = new Schema({
   categorySlug: { type: String, required: true, index: true },
   description: { type: String, required: true },
   price: { type: Number, required: true, min: 0 },
-  currency: { type: String, default: "USD" },
+  currency: { type: String, default: "EUR" },
   image: { type: String, required: true },
   deals: { type: Number, default: 0 },
   vendorName: { type: String, required: true, default: "LMP", trim: true },

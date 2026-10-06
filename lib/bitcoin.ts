@@ -1,20 +1,20 @@
-const BITCOIN_PRICE_URL = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd";
+const BITCOIN_PRICE_URL = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur";
 
-export async function getBitcoinUsdPrice(): Promise<number | null> {
+export async function getBitcoinEurPrice(): Promise<number | null> {
   try {
-    const response = await fetch(BITCOIN_PRICE_URL, { next: { revalidate: 300 } });
+    const response = await fetch(BITCOIN_PRICE_URL, { cache: "no-store", next: { revalidate: 300, } });
     if (!response.ok) return null;
-    const data = (await response.json()) as { bitcoin?: { usd?: number } };
-    const price = Number(data.bitcoin?.usd);
+    const data = (await response.json()) as { bitcoin?: { eur?: number } };
+    const price = Number(data.bitcoin?.eur);
     return Number.isFinite(price) && price > 0 ? price : null;
   } catch {
     return null;
   }
 }
 
-export function usdToBitcoin(usd: number, bitcoinUsdPrice: number | null): number | null {
-  if (!bitcoinUsdPrice || bitcoinUsdPrice <= 0) return null;
-  return usd / bitcoinUsdPrice;
+export function eurToBitcoin(eur: number, bitcoinEurPrice: number | null): number | null {
+  if (!bitcoinEurPrice || bitcoinEurPrice <= 0) return null;
+  return eur / bitcoinEurPrice;
 }
 
 export function formatBitcoin(value: number | null): string {

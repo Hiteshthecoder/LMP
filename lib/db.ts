@@ -21,15 +21,14 @@ global.mongooseCache = cached;
 
 export async function connectDB() {
   if (cached.conn) return cached.conn;
-
   if (!cached.promise) {
     cached.promise = mongoose.connect(MONGODB_URI!, {
       bufferCommands: false,
       maxPoolSize: 10,
       minPoolSize: 0,
       maxIdleTimeMS: 30_000,
-      serverSelectionTimeoutMS: 10_000,
-      connectTimeoutMS: 10_000,
+      serverSelectionTimeoutMS: 15_000,
+      connectTimeoutMS: 15_000,
     });
 
     cached.promise.catch(() => {

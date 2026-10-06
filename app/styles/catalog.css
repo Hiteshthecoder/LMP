@@ -101,4 +101,6 @@
   font-size: 12px;
 }
 
-.catalog-category-item:last-child { border-bottom: 0; }
+.catalog-category-item:last-child {
+  border-bottom: 0;
+}

@@ -9,6 +9,7 @@ import {
 import UserDevice from "@/models/UserDevice";
 import AuthChallenge from "@/models/AuthChallenge";
 import User from "@/models/User";
+import { clearScreenDown } from "node:readline";
 
 export const runtime = "nodejs";
 

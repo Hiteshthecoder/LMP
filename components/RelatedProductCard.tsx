@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ProductPageData } from "@/lib/product-page";
-import { formatUsd } from "@/lib/utils";
+import { formatEur } from "@/lib/utils";
 import { t } from "@/lib/text";
 
 export function RelatedProductCard({ product }: { product: ProductPageData }) {
@@ -26,7 +26,7 @@ export function RelatedProductCard({ product }: { product: ProductPageData }) {
           </div>
 
 
-          <div className="related-price">{formatUsd(product.price)}</div>
+          <div className="related-price">{formatEur(product.price)}</div>
         </div>
 
         <Link

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import type { CategoryOption } from "@/data/products";
+import { useEffect, useState } from "react";
+import { getBitcoinEurPrice } from "@/lib/bitcoin";
 
 type Props = {
   categories: CategoryOption[];
@@ -10,6 +12,11 @@ type Props = {
 
 export function Header({ categories }: Props) {
   const { user, loading, logout } = useAuth();
+  const [btcEurPrice, setBtcEuroPrice] = useState<number | null>(76771);
+
+  useEffect(() => {
+    getBitcoinEurPrice().then(price => price ? setBtcEuroPrice(price) : setBtcEuroPrice(prev => prev));
+  }, [])
 
   return (
     <header className="header">
@@ -18,7 +25,7 @@ export function Header({ categories }: Props) {
           LMP : Le monde parallel
         </Link>
 
-        <div className="rate">1 BTC = $84,779.00</div>
+        <div className="rate">1 BTC = € {btcEurPrice ?? 0}</div>
       </div>
 
       <nav className="nav">

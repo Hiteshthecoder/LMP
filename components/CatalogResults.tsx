@@ -45,7 +45,7 @@ export async function CatalogResults({ searchParams }: { searchParams: Promise<S
     });
 
     if (!page.products.length) {
-      return <div className="content-card search-empty">No catalogue items match your search.</div>;
+      return <div className="content-card search-empty">No items match your search.</div>;
     }
 
     return (

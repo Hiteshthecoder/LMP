@@ -311,12 +311,41 @@ button.purchase-payment-option {
   justify-content: center;
 }
 
+.purchase-btc-amount-summary>h2>a {
+  text-decoration: underline;
+}
+
 .btc-qr-img {
   margin: 50px auto;
 }
 
 .btc-add {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   text-align: center;
+  overflow: hidden;
+}
+
+.btc-add strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.btc-add>div {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  padding: 0 10px;
+
+  overflow-wrap: anywhere;
+  word-break: break-all;
+  white-space: normal;
+
+  text-align: center;
+  line-height: 1.45;
 }
 
 @media (max-width: 1050px) {

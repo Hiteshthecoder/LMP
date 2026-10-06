@@ -110,7 +110,7 @@ export function SidebarSearch({
           onChange={(event) => setMinPrice(event.target.value)}
           placeholder={t("from")}
         />
-        <span>USD</span>
+        <span>EUR</span>
 
         <input
           className="input"
@@ -120,7 +120,7 @@ export function SidebarSearch({
           onChange={(event) => setMaxPrice(event.target.value)}
           placeholder={t("to")}
         />
-        <span>USD</span>
+        <span>EUR</span>
       </div>
 
       <div className="search-actions">

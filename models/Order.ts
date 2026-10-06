@@ -10,7 +10,7 @@ const OrderSchema = new Schema({
   }],
   status: { type: String, enum: ["inquiry", "pending", "cancelled", "completed"], default: "inquiry", index: true },
   total: { type: Number, required: true, min: 0 },
-  currency: { type: String, default: "USD" },
+  currency: { type: String, default: "EUR" },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { useAuth } from "@/components/AuthProvider";
-import { formatUsd } from "@/lib/utils";
+import { formatEur } from "@/lib/utils";
 import { t } from "@/lib/text";
 import type { ProductPageData } from "@/lib/product-page";
-import { formatBitcoin, getBitcoinUsdPrice, usdToBitcoin } from "@/lib/bitcoin";
+import { formatBitcoin, getBitcoinEurPrice, eurToBitcoin } from "@/lib/bitcoin";
 
 export function PurchasePage({
   product,
@@ -35,13 +35,12 @@ export function PurchasePage({
 
   useEffect(() => {
     (async function () {
-      let btcUsdPrice = await getBitcoinUsdPrice();
-      if (btcUsdPrice) {
-        setBtcPrice(prev => usdToBitcoin(total, btcUsdPrice) ?? prev)
+      let btcEurPrice = await getBitcoinEurPrice();
+      if (btcEurPrice) {
+        setBtcPrice(prev => eurToBitcoin(total, btcEurPrice) ?? prev)
       }
     })()
   }, [quantity])
-
 
   function increaseQuantity() {
     if (quantity <= 10) {
@@ -109,7 +108,7 @@ export function PurchasePage({
 
             <div className="purchase-confirm-card">
               <h2>{t("Confirm Order")}</h2>
-              <div className="purchase-line"><span>{t("Price")}</span><strong>{formatUsd(unitPrice)}</strong></div>
+              <div className="purchase-line"><span>{t("Price")}</span><strong>{formatEur(unitPrice)}</strong></div>
               <div className="purchase-line purchase-quantity-row">
                 <span>{t("quantity")}</span>
                 <div className="purchase-quantity-controls">
@@ -118,16 +117,18 @@ export function PurchasePage({
                   <button onClick={increaseQuantity}>+</button>
                 </div>
               </div>
-              <div className="purchase-line"><span>{t("Total Amount")}</span><strong>{formatUsd(total)}</strong></div>
+              <div className="purchase-line"><span>{t("Total Amount")}</span><strong>{formatEur(total)}</strong></div>
               <div className="purchase-payment-options">
                 <button type="button" className="purchase-payment-option active">💳 {t("Escrow")}</button>
               </div>
-              <div className="purchase-total-line"><span>{t("total")}</span><strong>{formatUsd(total)}</strong></div>
+              <div className="purchase-total-line"><span>{t("total")}</span><strong>{formatEur(total)}</strong></div>
             </div>
           </section>
 
           {btcPriceSection && <section className="purchase-btc-amount-summary">
-            <h2>pls send {formatBitcoin(btcPrice)} BTC to the BitCoin QR and mail us the payment proof at lemondeparallel@proton.me</h2>
+            <h2>pls send {formatBitcoin(btcPrice)} BTC to the BitCoin QR and mail us the payment proof at  <a href="mailto:lemondeparallel@proton.me">
+              lemondeparallel@proton.me
+            </a></h2>
             <Image
               className="btc-qr-img"
               src="/btc-qr.png"
@@ -137,7 +138,10 @@ export function PurchasePage({
               width={250}
               height={250}
             />
-            <h3 className="btc-add"> Address :  bc1qr2uthxuv73hyzcudqa2m2h3qrsv8nn5r2nj4f4</h3>
+            <div className="btc-add">
+              <strong>Address :</strong>
+              <div>bc1qr2uthxuv73hyzcudqa2m2h3qrsv8nn5r2nj4f4</div>
+            </div>
           </section>}
 
           <section className="purchase-final-card">

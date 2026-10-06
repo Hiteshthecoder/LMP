@@ -1,18 +1,17 @@
 import Image from "next/image";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BuyButton } from "@/components/BuyButton";
 import { ProductSidebar } from "@/components/ProductSidebar";
 import { ProductTabs } from "@/components/ProductTabs";
 import { RelatedProductCard } from "@/components/RelatedProductCard";
 
-import { formatUsd } from "@/lib/utils";
+import { formatEur } from "@/lib/utils";
 import {
   formatBitcoin,
-  getBitcoinUsdPrice,
-  usdToBitcoin,
+  getBitcoinEurPrice,
+  eurToBitcoin,
 } from "@/lib/bitcoin";
 
 import {
@@ -73,19 +72,19 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const [relatedProducts, bitcoinUsdPrice] = await Promise.all([
+  const [relatedProducts, bitcoinEurPrice] = await Promise.all([
     getRelatedProducts(product.category, product._id, 4),
-    getBitcoinUsdPrice(),
+    getBitcoinEurPrice(),
   ]);
 
-  const bitcoinAmount = usdToBitcoin(
+  const bitcoinAmount = eurToBitcoin(
     product.price,
-    bitcoinUsdPrice
+    bitcoinEurPrice
   );
 
   const formattedCategory = formatCategory(product.category);
 
-  const formattedUsdPrice = product.price.toLocaleString("en-US", {
+  const formattedEurPrice = product.price.toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
@@ -125,7 +124,7 @@ export default async function ProductDetailPage({
 
               <div className="product-fact">
                 <strong>Item Price:</strong>{" "}
-                <span>{formatUsd(product.price)}</span>
+                <span>{formatEur(product.price)}</span>
               </div>
 
               <div className="product-fact">
@@ -153,14 +152,14 @@ export default async function ProductDetailPage({
 
               <div className="purchase-row">
                 <div className="currency-price">
-                  🇺🇸 USD {formattedUsdPrice}
+                  EUR {formattedEurPrice}
                 </div>
 
                 <div
                   className="currency-price"
                   title={
-                    bitcoinUsdPrice
-                      ? `1 BTC = ${formatUsd(bitcoinUsdPrice)}`
+                    bitcoinEurPrice
+                      ? `1 BTC = ${formatEur(bitcoinEurPrice)}`
                       : "Live Bitcoin price unavailable"
                   }
                 >

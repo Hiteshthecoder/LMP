@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/data/products";
-import { formatUsd } from "@/lib/utils";
+import { formatEur } from "@/lib/utils";
 import { t } from "@/lib/text";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -22,7 +22,7 @@ export function ProductCard({ product }: { product: Product }) {
       </Link>
       <p>{t(product.description)}</p>
       <div className="product-meta">
-        <span className="price">{formatUsd(product.price)}</span>
+        <span className="price">{formatEur(product.price)}</span>
       </div>
     </article>
   );

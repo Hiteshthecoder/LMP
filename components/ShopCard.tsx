@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/data/products";
-import { formatUsd, humanizeSlug } from "@/lib/utils";
+import { formatEur, humanizeSlug } from "@/lib/utils";
 import { t } from "@/lib/text";
 
 export function ShopCard({
@@ -45,7 +45,7 @@ export function ShopCard({
           <div className="shop-divider" />
 
           <div className="shop-price-row">
-            <strong>{formatUsd(product.price)}</strong>
+            <strong>{formatEur(product.price)}</strong>
             <span>
               {t("Country")} <b>{t(product.location)}</b>
             </span>
