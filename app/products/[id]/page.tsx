@@ -145,7 +145,7 @@ export default async function ProductDetailPage({
 
               {product.details[0] && (
                 <div className="product-fact">
-                  <strong>Delivery service:</strong>{" "}
+                  <strong>Detail :</strong>{" "}
                   <span>{product.details[0]}</span>
                 </div>
               )}

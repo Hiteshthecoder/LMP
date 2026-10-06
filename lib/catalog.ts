@@ -20,7 +20,10 @@ export type ProductPage = {
 };
 
 type MongoCursor = {
-  createdAt: string;
+  // A null timestamp means the record has no createdAt value.
+  // Those legacy records are sorted after timestamped records and need
+  // their own pagination branch so they are not skipped.
+  createdAt: string | null;
   id: string;
 };
 
@@ -57,7 +60,7 @@ function decodeCursor(cursor?: string): MongoCursor | null {
     if (
       value &&
       typeof value === "object" &&
-      typeof value.createdAt === "string" &&
+      (typeof value.createdAt === "string" || value.createdAt === null) &&
       typeof value.id === "string" &&
       Types.ObjectId.isValid(value.id)
     ) {
@@ -71,22 +74,30 @@ function decodeCursor(cursor?: string): MongoCursor | null {
 }
 
 function buildFilter(options: ProductFilters): Record<string, any> {
-  const filter: Record<string, any> = { status: "active" };
+  // Only explicitly archived products are hidden from the catalogue.
+  // This keeps legacy products (including records with a missing/older status
+  // value) visible instead of making them disappear from the homepage.
+  const filter: Record<string, any> = {
+    status: { $ne: "archived" },
+  };
 
-  if (options.category) filter.categorySlug = options.category;
+  if (options.category?.trim()) {
+    const escapedCategory = options.category
+      .trim()
+      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+    filter.categorySlug = {
+      $regex: `^${escapedCategory}$`,
+      $options: "i",
+    };
+  }
   if (options.location?.trim()) {
-    // Product locations are stored as free-form text and may contain
-    // multiple regions (for example, "Ukraine, mexico" or
-    // "south america, europe, asia"). Match the selected location
-    // case-insensitively as a complete word instead of requiring an
-    // exact database-string match.
     const escapedLocation = options.location
       .trim()
       .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
     filter.location = {
-      $regex: `\\b${escapedLocation}\\b`,
+      $regex: escapedLocation,
       $options: "i",
     };
   }
@@ -132,19 +143,33 @@ export async function getProductsPage(
   }
 
   if (decodedCursor) {
-    const createdAt = new Date(decodedCursor.createdAt);
+    const cursorId = new Types.ObjectId(decodedCursor.id);
 
-    if (Number.isNaN(createdAt.getTime())) {
-      throw new Error("Invalid product pagination cursor.");
+    if (decodedCursor.createdAt === null) {
+      // Legacy products can have no createdAt field. MongoDB sorts those
+      // records after timestamped records with the current descending sort,
+      // so once pagination reaches them we continue within that group by _id.
+      filter.createdAt = null;
+      filter._id = { $lt: cursorId };
+    } else {
+      const createdAt = new Date(decodedCursor.createdAt);
+
+      if (Number.isNaN(createdAt.getTime())) {
+        throw new Error("Invalid product pagination cursor.");
+      }
+
+      filter.$or = [
+        { createdAt: { $lt: createdAt } },
+        {
+          createdAt,
+          _id: { $lt: cursorId },
+        },
+        // Include legacy documents with a missing/null timestamp after all
+        // timestamped documents. Without this branch they are never reached
+        // by infinite-scroll pagination.
+        { createdAt: null },
+      ];
     }
-
-    filter.$or = [
-      { createdAt: { $lt: createdAt } },
-      {
-        createdAt,
-        _id: { $lt: new Types.ObjectId(decodedCursor.id) },
-      },
-    ];
   }
 
   const docs = await Product.find(filter)
@@ -158,9 +183,11 @@ export async function getProductsPage(
 
   const last = pageDocs[pageDocs.length - 1];
   const nextCursor =
-    hasMore && last?._id && last.createdAt
+    hasMore && last?._id
       ? encodeCursor({
-        createdAt: new Date(last.createdAt).toISOString(),
+        createdAt: last.createdAt
+          ? new Date(last.createdAt).toISOString()
+          : null,
         id: last._id.toString(),
       })
       : null;

@@ -23,7 +23,6 @@ export default async function RootLayout({
           <div className="site">
             <div className="top-space" />
             <Header categories={categories} />
-
             {children}
           </div>
         </AuthProvider>
