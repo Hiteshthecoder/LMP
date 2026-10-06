@@ -36,6 +36,7 @@ export default function AboutPage() {
 
                     <p className="closing">
                         Serve yourselves fellas with our new site, like you used to before crackdown of may 2021.
+                        you will see few products right now as we are making a slow come back after long period of governments captivity. 
                     </p>
                 </div>
             </article>

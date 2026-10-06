@@ -10,7 +10,7 @@ export default function HelpPage() {
           <div className="help-contact-content">
             <h2>Need Help?</h2>
             <p>
-              If you are facing any problems, you can communicate with us on{" "}
+              If you are facing any problems or you guys need anything that is not listed here as product but want to buy it you can communicate with us on{" "}
               <a href="mailto:lemondeparallel@proton.me">
                 lemondeparallel@proton.me
               </a>
