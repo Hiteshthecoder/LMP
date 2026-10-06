@@ -6,7 +6,7 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
   return (
     <main className="page-shell">
       <div className="catalog-load-more-error catalog-initial-error" role="alert">
-        <span>{t("Could not load the catalogue.")}</span>
+        <span>{t("Could not load the Items.")}</span>
         <button className="btn" type="button" onClick={() => reset()}>
           {t("Try again")}
         </button>

@@ -43,9 +43,7 @@ export default function LoginPage() {
         <form className="auth-card" onSubmit={submit}>
           <div style={{ textAlign: "center", fontSize: 38 }}>🔐</div>
           <h1>{t("Login")}</h1>
-          <p>{t("Please login to access the catalogue.")}</p>
           {error && <div className="form-error">{error}</div>}
-
           <label>{t("USERNAME OR EMAIL")}</label>
           <input
             className="input"

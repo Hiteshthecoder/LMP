@@ -57,8 +57,6 @@ export async function CatalogResults({ searchParams }: { searchParams: Promise<S
       />
     );
   } catch (error) {
-    console.error("Catalog products could not be loaded:", error);
-
     return (
       <div className="catalog-load-more-error catalog-initial-error" role="alert">
         <span>Could not load products.</span>
