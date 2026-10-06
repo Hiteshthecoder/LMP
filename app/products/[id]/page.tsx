@@ -8,16 +8,12 @@ import { ProductTabs } from "@/components/ProductTabs";
 import { RelatedProductCard } from "@/components/RelatedProductCard";
 
 import { formatEur } from "@/lib/utils";
-import {
-  formatBitcoin,
-  getBitcoinEurPrice,
-  eurToBitcoin,
-} from "@/lib/bitcoin";
 
 import {
   getProductPageData,
   getRelatedProducts,
 } from "@/lib/product-page";
+import { BitcoinEurPrice } from "@/components/BitCoinEurPrice";
 
 type ProductPageProps = {
   params: Promise<{
@@ -72,15 +68,10 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const [relatedProducts, bitcoinEurPrice] = await Promise.all([
+  const [relatedProducts] = await Promise.all([
     getRelatedProducts(product.category, product._id, 4),
-    getBitcoinEurPrice(),
-  ]);
 
-  const bitcoinAmount = eurToBitcoin(
-    product.price,
-    bitcoinEurPrice
-  );
+  ]);
 
   const formattedCategory = formatCategory(product.category);
 
@@ -157,13 +148,8 @@ export default async function ProductDetailPage({
 
                 <div
                   className="currency-price"
-                  title={
-                    bitcoinEurPrice
-                      ? `1 BTC = ${formatEur(bitcoinEurPrice)}`
-                      : "Live Bitcoin price unavailable"
-                  }
-                >
-                  ₿ BTC {formatBitcoin(bitcoinAmount)}
+                >BTC &nbsp;
+                  {<BitcoinEurPrice eurAmount={product.price} />}
                 </div>
 
                 <BuyButton productId={product.id} />

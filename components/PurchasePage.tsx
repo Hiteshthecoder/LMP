@@ -8,7 +8,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { formatEur } from "@/lib/utils";
 import { t } from "@/lib/text";
 import type { ProductPageData } from "@/lib/product-page";
-import { formatBitcoin, getBitcoinEurPrice, eurToBitcoin } from "@/lib/bitcoin";
+import { BitcoinEurPrice } from "./BitCoinEurPrice";
 
 export function PurchasePage({
   product,
@@ -20,11 +20,10 @@ export function PurchasePage({
 
   const [quantity, setQuantity] = useState(1);
 
-  const [btcPrice, setBtcPrice] = useState(0);
-
   const [btcPriceSection, setBtcPriceSection] = useState(false);
 
   const unitPrice = Number(product.price) || 0;
+
   const total = unitPrice * quantity;
 
   useEffect(() => {
@@ -32,15 +31,6 @@ export function PurchasePage({
       router.replace(`/login?next=${encodeURIComponent(`/purchase?product=${product.id}`)}`);
     }
   }, [loading, user, router, product.id]);
-
-  useEffect(() => {
-    (async function () {
-      let btcEurPrice = await getBitcoinEurPrice();
-      if (btcEurPrice) {
-        setBtcPrice(prev => eurToBitcoin(total, btcEurPrice) ?? prev)
-      }
-    })()
-  }, [quantity])
 
   function increaseQuantity() {
     if (quantity <= 10) {
@@ -126,7 +116,7 @@ export function PurchasePage({
           </section>
 
           {btcPriceSection && <section className="purchase-btc-amount-summary">
-            <h2>pls send {formatBitcoin(btcPrice)} BTC to the BitCoin QR and mail us the payment proof at  <a href="mailto:lemondeparallel@proton.me">
+            <h2>pls send {<BitcoinEurPrice eurAmount={product.price * quantity} quantity={quantity} />} BTC to the BitCoin QR and mail us the payment proof at  <a href="mailto:lemondeparallel@proton.me">
               lemondeparallel@proton.me
             </a></h2>
             <Image
