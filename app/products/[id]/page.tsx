@@ -97,7 +97,7 @@ export default async function ProductDetailPage({
                 width={270}
                 height={238}
                 sizes="(max-width: 800px) 100vw, (max-width: 1100px) 220px, 270px"
-                priority
+                priority={true}
               />
 
               <Image

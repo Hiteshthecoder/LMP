@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
@@ -124,7 +125,7 @@ function buildFilter(options: ProductFilters): Record<string, any> {
   return filter;
 }
 
-export async function getProductsPage(
+async function getProductsPageUncached(
   options: ProductFilters & { limit?: number; cursor?: string } = {},
 ): Promise<ProductPage> {
   if (!process.env.MONGODB_URI) {
@@ -197,6 +198,38 @@ export async function getProductsPage(
     hasMore,
     nextCursor,
   };
+}
+
+const getCachedCategoryPage = unstable_cache(
+  async (category: string, cursor: string | undefined, limit: number) =>
+    getProductsPageUncached({
+      category,
+      cursor,
+      limit,
+    }),
+  ["catalog-category-products"],
+  { revalidate: 60 },
+);
+
+export async function getProductsPage(
+  options: ProductFilters & { limit?: number; cursor?: string } = {},
+): Promise<ProductPage> {
+  const hasOnlyCategoryFilter =
+    Boolean(options.category?.trim()) &&
+    !options.q?.trim() &&
+    !options.location?.trim() &&
+    options.minPrice === undefined &&
+    options.maxPrice === undefined;
+
+  if (hasOnlyCategoryFilter) {
+    return getCachedCategoryPage(
+      options.category!.trim().toLowerCase(),
+      options.cursor,
+      Math.min(Math.max(options.limit ?? 12, 1), 24),
+    );
+  }
+
+  return getProductsPageUncached(options);
 }
 
 export async function getProducts(

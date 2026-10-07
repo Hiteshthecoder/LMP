@@ -4,7 +4,7 @@ import { AuthProvider } from "@/components/AuthProvider";
 import { getCategories } from "@/lib/catalog";
 
 export const metadata = {
-  title: "LMP",
+  title: "LMP : Global Gun Market Place",
   description:
     "Global Marketplace for Genuine Guns",
 };

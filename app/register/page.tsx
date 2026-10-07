@@ -19,6 +19,11 @@ export default function RegisterPage() {
   });
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
+
+  useEffect(() => {
+    router.prefetch("/");
+  }, [router]);
 
   useEffect(() => {
     if (!loading && user) router.replace("/");
@@ -26,6 +31,8 @@ export default function RegisterPage() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
+    if (busy || redirecting) return;
+
     setError("");
 
     if (form.password !== form.repeat) {
@@ -45,11 +52,14 @@ export default function RegisterPage() {
 
       if (result) {
         setError(result);
+        setBusy(false);
         return;
       }
 
+      setRedirecting(true);
       router.replace("/");
-    } finally {
+    } catch {
+      setError(t("Unable to register right now."));
       setBusy(false);
     }
   }
@@ -114,13 +124,22 @@ export default function RegisterPage() {
             required
           />
 
-          <button className="btn btn-yellow" disabled={busy}>
-            {busy ? t("Creating account…") : t("Register")}
+          <button className="btn btn-yellow" disabled={busy || redirecting} aria-busy={busy || redirecting}>
+            {redirecting ? t("Redirecting…") : busy ? t("Creating account…") : t("Register")}
           </button>
           <p>
             {t("Already have an account?")} <Link href="/login"><b>{t("login")}</b></Link>.
           </p>
         </form>
+        {redirecting && (
+          <div className="auth-loading-overlay" role="status" aria-live="polite" aria-busy="true">
+            <div className="auth-loading-card">
+              <span className="auth-loading-spinner" aria-hidden="true" />
+              <strong>{t("Redirecting…")}</strong>
+              <span>{t("Loading your homepage")}</span>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );

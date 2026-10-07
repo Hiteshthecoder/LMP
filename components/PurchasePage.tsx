@@ -82,6 +82,7 @@ export function PurchasePage({
                 src={product.image}
                 alt={product.name}
                 className="purchase-product-image"
+                priority={true}
                 width={160}
                 height={166}
                 sizes="(max-width: 560px) 260px, (max-width: 800px) 125px, 160px"
@@ -122,7 +123,6 @@ export function PurchasePage({
             <Image
               className="btc-qr-img"
               src="/btc-qr.png"
-              priority
               quality={100}
               alt={product.name}
               width={250}

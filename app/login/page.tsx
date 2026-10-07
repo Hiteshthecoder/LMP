@@ -14,6 +14,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
+
+  useEffect(() => {
+    router.prefetch("/");
+  }, [router]);
 
   useEffect(() => {
     if (!loading && user) router.replace("/");
@@ -21,6 +26,8 @@ export default function LoginPage() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
+    if (busy || redirecting) return;
+
     setBusy(true);
     setError("");
 
@@ -28,10 +35,17 @@ export default function LoginPage() {
       const result = await login(usernameOrEmail, password);
       if (result) {
         setError(result);
+        setBusy(false);
         return;
       }
+
+      // Keep the loading UI visible until the home-page navigation starts.
+      // The home route was prefetched above, so this transition is usually
+      // faster than waiting for the first navigation request to begin.
+      setRedirecting(true);
       router.replace("/");
-    } finally {
+    } catch {
+      setError(t("Unable to log in right now."));
       setBusy(false);
     }
   }
@@ -65,13 +79,22 @@ export default function LoginPage() {
             required
           />
 
-          <button className="btn btn-yellow" disabled={busy}>
-            {busy ? t("Logging in…") : t("Login")}
+          <button className="btn btn-yellow" disabled={busy || redirecting} aria-busy={busy || redirecting}>
+            {redirecting ? t("Redirecting…") : busy ? t("Logging in…") : t("Login")}
           </button>
           <p>
             {t("If you do not have an account,")} <Link href="/register"><b>{t("register")}</b></Link>.
           </p>
         </form>
+        {redirecting && (
+          <div className="auth-loading-overlay" role="status" aria-live="polite" aria-busy="true">
+            <div className="auth-loading-card">
+              <span className="auth-loading-spinner" aria-hidden="true" />
+              <strong>{t("Redirecting…")}</strong>
+              <span>{t("Loading your homepage")}</span>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
