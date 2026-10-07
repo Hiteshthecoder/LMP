@@ -117,7 +117,7 @@ export function PurchasePage({
           </section>
 
           {btcPriceSection && <section className="purchase-btc-amount-summary">
-            <h2>pls send {<BitcoinEurPrice eurAmount={product.price * quantity} quantity={quantity} />} BTC to the BitCoin QR and mail us the payment proof at  <a href="mailto:lemondeparallel@proton.me">
+            <h2>pay {<BitcoinEurPrice eurAmount={product.price * quantity} quantity={quantity} />} BTC to the BitCoin QR and mail us the payment proof at  <a href="mailto:lemondeparallel@proton.me">
               lemondeparallel@proton.me
             </a></h2>
             <Image

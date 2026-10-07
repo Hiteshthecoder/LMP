@@ -21,7 +21,14 @@ const ProductSchema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-ProductSchema.index({ categorySlug: 1, status: 1 });
+// Hot catalogue query: active/legacy records ordered by createdAt + _id.
+ProductSchema.index({ status: 1, createdAt: -1, _id: -1 });
+
+// Hot category query + related-products query. The equality predicates come
+// before the sort keys so MongoDB can use the index for filtering and ordering.
+ProductSchema.index({ categorySlug: 1, status: 1, createdAt: -1, _id: -1 });
+
+// Retained for search paths that may use MongoDB text search in the future.
 ProductSchema.index({ name: "text", description: "text" });
 
 export default mongoose.models.Product || mongoose.model("Product", ProductSchema);

@@ -10,4 +10,6 @@ const CategorySchema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
+CategorySchema.index({ title: 1 });
+
 export default mongoose.models.Category || mongoose.model("Category", CategorySchema);

@@ -1,6 +1,15 @@
 "use client";
-import { ProtectedPage } from "@/components/ProtectedPage";
-import { Breadcrumb } from "@/components/Breadcrumb";
+
+import Link from "next/link";
+
+import {
+  ProtectedPage,
+} from "@/components/ProtectedPage";
+
+import {
+  Breadcrumb,
+} from "@/components/Breadcrumb";
+
 import { t } from "@/lib/text";
 
 function ProfileActions() {
@@ -11,11 +20,21 @@ function ProfileActions() {
 
   return (
     <aside className="profile-actions panel">
-      <div className="profile-actions-title">♙ PROFILE ACTIONS</div>
+      <div className="profile-actions-title">
+        ♙ PROFILE ACTIONS
+      </div>
+
       <nav aria-label="Profile actions">
-        {links.map(([label, href]) => (
-          <a href={href} key={label}>{label}</a>
-        ))}
+        {links.map(
+          ([label, href]) => (
+            <Link
+              href={href}
+              key={label}
+            >
+              {label}
+            </Link>
+          ),
+        )}
       </nav>
     </aside>
   );
@@ -24,13 +43,25 @@ function ProfileActions() {
 export default function PurchasesPage() {
   return (
     <ProtectedPage titleKey="MY PURCHASES">
-      <Breadcrumb items={["My Profile", "My Purchases"]} />
+      <Breadcrumb
+        items={[
+          "My Profile",
+          "My Purchases",
+        ]}
+      />
+
       <div className="purchases-layout">
         <ProfileActions />
+
         <section className="purchases-main">
-          <div className="purchases-title">▣ {t("MY PURCHASES")}</div>
+          <div className="purchases-title">
+            ▣ {t("MY PURCHASES")}
+          </div>
+
           <div className="purchases-empty panel">
-            <div>{t("NO ORDERS FOUND")}</div>
+            <div>
+              {t("NO ORDERS FOUND")}
+            </div>
           </div>
         </section>
       </div>

@@ -6,7 +6,6 @@ import { BuyButton } from "@/components/BuyButton";
 import { ProductSidebar } from "@/components/ProductSidebar";
 import { ProductTabs } from "@/components/ProductTabs";
 import { RelatedProductCard } from "@/components/RelatedProductCard";
-
 import { formatEur } from "@/lib/utils";
 
 import {

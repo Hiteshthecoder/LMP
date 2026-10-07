@@ -28,11 +28,22 @@ export async function POST(request: Request) {
     }
 
     await connectDB();
-    const duplicate = await User.findOne({ $or: [{ username }, { email }] }).lean();
-    if (duplicate) return NextResponse.json({ error: "Username or email is already registered." }, { status: 409 });
 
+    // username and email are unique indexes. Avoid a read-before-write query
+    // and handle the duplicate-key race at the write itself.
     const passwordHash = await bcrypt.hash(password, 12);
-    const user = await User.create({ username, displayName, email, passwordHash });
+    let user;
+    try {
+      user = await User.create({ username, displayName, email, passwordHash });
+    } catch (error: any) {
+      if (error?.code === 11000) {
+        return NextResponse.json(
+          { error: "Username or email is already registered." },
+          { status: 409 },
+        );
+      }
+      throw error;
+    }
 
     await UserDevice.findOneAndUpdate(
       { deviceId },

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import type { CategoryOption } from "@/data/products";
-import { useEffect, useState } from "react";
 import { BitcoinEurPrice } from "./BitCoinEurPrice";
 
 type Props = {
