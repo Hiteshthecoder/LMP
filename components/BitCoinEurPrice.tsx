@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { eurToBitcoin, formatBitcoin } from "@/lib/bitcoin";
-import { formatEur } from "@/lib/utils";
-
 const REFRESH_INTERVAL_MS = 5 * 60 * 1000;
 
 export function BitcoinEurPrice({ eurAmount, quantity }: { eurAmount?: number, quantity?: number }) {

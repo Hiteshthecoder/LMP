@@ -50,5 +50,40 @@ select {
 
 .site {
   min-height: 100vh;
-  background: radial-gradient(circle at 88% 0%, rgba(109, 37, 141, .18), transparent 24%), var(--bg);
+  background:
+    radial-gradient(circle at 88% 0%,
+      rgba(109, 37, 141, 0.18),
+      transparent 24%),
+    var(--bg);
+}
+
+/* Lightweight fallbacks while category data loads. */
+.performance-skeleton-line {
+  height: 12px;
+  margin: 12px 0;
+  border-radius: 4px;
+  background: rgba(169, 194, 204, 0.14);
+  animation: performance-pulse 1.4s ease-in-out infinite;
+}
+
+.performance-skeleton-line.short {
+  width: 58%;
+}
+
+@keyframes performance-pulse {
+
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .performance-skeleton-line {
+    animation: none;
+  }
 }

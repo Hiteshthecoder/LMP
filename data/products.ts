@@ -18,5 +18,7 @@ export type Product = {
 export type CategoryOption = {
   slug: string;
   title: string;
+  image: string;
+  description: string;
   productCount: number;
 };

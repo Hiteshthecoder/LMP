@@ -17,6 +17,7 @@ export function RelatedProductCard({ product }: { product: ProductPageData }) {
           width={105}
           height={88}
           sizes="105px"
+
         />
 
         <div className="related-details">

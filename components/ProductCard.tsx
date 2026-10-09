@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: Product }) {
           alt={product.name}
           width={900}
           height={600}
-          sizes="(max-width: 800px) 100vw, 33vw"
+          sizes="(max-width: 800px) 100vw, (max-width: 1100px) 220px, 270px"
         />
         <h3>{t(product.name)}</h3>
       </Link>

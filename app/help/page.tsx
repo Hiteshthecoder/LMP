@@ -1,8 +1,32 @@
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { SeoJsonLd } from "@/components/SeoJsonLd";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Get Help",
+  description:
+    "Get help with LMP: Le Monde Parallel Global Marketplace For guns, drugs, fireamrs, and support.",
+  alternates: { canonical: "/help" },
+  openGraph: {
+    title: "Help | LMP : Le Monde Parallel Marketplace",
+    description:
+      "Get help with LMP: Le Monde Parallel Global Marketplace For guns, drugs, fireamrs, and support.",
+    url: "/help",
+    type: "website",
+  },
+};
 
 export default function HelpPage() {
   return (
     <main className="page-shell">
+      <SeoJsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          name: "LMP : Le Monde Parallel Global Gun and Fireamrs Marketplace Help Center",
+          url: "/help",
+        }}
+      />
       <Breadcrumb items={["Help"]} />
       <section className="content-card">
         <section className="help-contact-card" aria-label="Help contact">

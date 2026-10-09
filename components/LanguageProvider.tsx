@@ -12,7 +12,6 @@ import {
 import {
   DEFAULT_LANGUAGE,
   LANGUAGE_STORAGE_KEY,
-  languages,
   isLanguageCode,
   type LanguageCode,
 } from "@/lib/i18n";

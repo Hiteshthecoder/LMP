@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/data/products";
@@ -29,7 +28,7 @@ export function ShopCard({
           alt={product.name}
           width={152}
           height={151}
-          sizes="152px"
+          sizes="(max-width: 800px) 100vw, (max-width: 1100px) 220px, 270px"
           priority={priority}
         />
 

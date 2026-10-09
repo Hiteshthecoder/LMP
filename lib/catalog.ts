@@ -351,7 +351,7 @@ const getCategoriesCached =
 
       const docs = await Category.find()
         .select(
-          "slug title productCount -_id",
+          "slug title description image productCount -_id",
         )
         .sort({
           title: 1,
@@ -362,6 +362,8 @@ const getCategoriesCached =
         (category) => ({
           slug: category.slug,
           title: category.title,
+          description: category.description,
+          image: category.image,
           productCount:
             category.productCount ?? 0,
         }),
@@ -377,4 +379,22 @@ export async function getCategories(): Promise<
   CategoryOption[]
 > {
   return getCategoriesCached();
+}
+
+export async function getCategoryBySlug(
+  slug: string,
+): Promise<CategoryOption | null> {
+  const normalizedSlug = slug.trim().toLowerCase();
+
+  if (!normalizedSlug) {
+    return null;
+  }
+
+  const categories = await getCategoriesCached();
+
+  return (
+    categories.find(
+      (category) => category.slug.trim().toLowerCase() === normalizedSlug,
+    ) ?? null
+  );
 }

@@ -29,8 +29,6 @@ export async function POST(request: Request) {
 
     await connectDB();
 
-    // username and email are unique indexes. Avoid a read-before-write query
-    // and handle the duplicate-key race at the write itself.
     const passwordHash = await bcrypt.hash(password, 12);
     let user;
     try {

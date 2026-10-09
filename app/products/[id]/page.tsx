@@ -7,7 +7,7 @@ import { ProductSidebar } from "@/components/ProductSidebar";
 import { ProductTabs } from "@/components/ProductTabs";
 import { RelatedProductCard } from "@/components/RelatedProductCard";
 import { formatEur } from "@/lib/utils";
-
+import { SITE_NAME, absoluteUrl, productPath, trimDescription } from "@/lib/seo";
 import {
   getProductPageData,
   getRelatedProducts,
@@ -26,33 +26,47 @@ function formatCategory(category: string) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
+
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
   const { id } = await params;
-
   const product = await getProductPageData(id);
 
   if (!product) {
     return {
-      title: "Product Not Found",
-      description: "The requested product could not be found.",
+      title: "Item Not Found",
+      description: "The requested Item could not be found.",
+      robots: { index: false, follow: false },
     };
   }
 
+  const description = trimDescription(product.description, `View details, availability, and pricing for ${product.name}.`);
+
+  const canonicalId = product.id;
+  const canonical = productPath(canonicalId);
+
   return {
-    title: `LMP : ${product.name}`,
-    description: `View details and pricing for ${product.name}.`,
+    title: product.name,
+    description,
+    alternates: { canonical },
     openGraph: {
-      title: `LMP : ${product.name}`,
-      description: `View details and pricing for ${product.name}.`,
-      images: [
-        {
-          url: product.image,
-          alt: product.name,
-        },
-      ],
+      title: `${SITE_NAME} | ${product.name}`,
+      description,
+      url: canonical,
+      type: "website",
+      images: product.image
+        ? [
+          {
+            url: absoluteUrl(product.image),
+            width: 1200,
+            height: 630,
+            alt: product.name,
+          },
+        ]
+        : undefined,
     },
+    robots: { index: true, follow: true },
   };
 }
 
