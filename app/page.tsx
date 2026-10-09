@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { Sidebar } from "@/components/Sidebar";
 import { CatalogResults } from "@/components/CatalogResults";
 import { CatalogResultsSkeleton } from "@/components/CatalogResultsSkeleton";
 import { getCategories } from "@/lib/catalog";
