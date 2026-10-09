@@ -119,7 +119,7 @@ export function PurchasePage({
           {btcPriceSection && <section className="purchase-btc-amount-summary">
             <h2>Pay {<BitcoinEurPrice eurAmount={product.price * quantity} quantity={quantity} />} BTC to the BitCoin QR and mail us the payment proof at  <a href="mailto:lemondeparallel@proton.me">
               lemondeparallel@proton.me
-            </a>Once We Confirm Your Payment This Item will be added to your purchases.</h2>
+            </a>&nbsp; Once We Confirm Your Payment This Item will be added to your purchases.</h2>
             <Image
               className="btc-qr-img"
               src="/btc-qr.png"
